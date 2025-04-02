@@ -1,0 +1,44 @@
+
+CREATE TABLE `food_ctol18` (
+  `foodId` int(20) NOT NULL AUTO_INCREMENT,
+  `foodName` varchar(20) DEFAULT NULL,
+  `foodType` varchar(20) DEFAULT NULL,
+  `foodCategory` varchar(20) DEFAULT NULL,
+  `foodDesc` varchar(500) DEFAULT NULL,
+  `foodPrice` double(5,2) DEFAULT NULL,
+  `image` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`foodId`)
+);
+
+CREATE TABLE `customer_ctol18` (
+  `custName` varchar(20) DEFAULT NULL,
+  `emailId` varchar(40) NOT NULL,
+  `custPassword` varchar(20) DEFAULT NULL,
+  `custAddress` varchar(20) DEFAULT NULL,
+  `contactNo` varchar(20) DEFAULT NULL,
+  `custLocation` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`emailId`)
+);
+
+CREATE TABLE `cart_ctol18` (
+  `foodId` int(10) DEFAULT NULL,
+  `cartId` int(10) NOT NULL AUTO_INCREMENT,
+  `foodPrice` double(5,2) DEFAULT NULL,
+  `foodQuantity` int(10) DEFAULT NULL,
+  `totalPrice` double(10,2) DEFAULT NULL,
+  `emailId` varchar(40) DEFAULT NULL,
+  `foodName` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`cartId`),
+  KEY `foodId` (`foodId`),
+  CONSTRAINT `cart_ctol18_ibfk_1` FOREIGN KEY (`foodId`) REFERENCES `food_ctol18` (`foodId`)
+);
+
+CREATE TABLE `order_ctol18` (
+  `orderId` int(10) NOT NULL,
+  `orderDate` date DEFAULT NULL,
+  `totalBill` double(10,2) DEFAULT NULL,
+  `emailId` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`orderId`),
+  KEY `emailId` (`emailId`),
+  CONSTRAINT `order_ctol18_ibfk_1` FOREIGN KEY (`emailId`) REFERENCES `customer_ctol18` (`emailId`)
+);
